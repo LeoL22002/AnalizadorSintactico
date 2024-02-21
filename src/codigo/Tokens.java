@@ -7,17 +7,17 @@ package codigo;
 
 /**
  *
- * @author Charly Ponce
+ * @author Leo Lorenzo
  */
 public enum Tokens {
     Linea,
     Comillas,
     T_dato,
     Cadena,
-    If,
-    Else,
-    Do,
-    While,
+    Si,
+    Sino,
+    Hacer,
+    Mientras,
     For,
     Igual,
     Suma,

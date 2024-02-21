@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package codigo;
 
 import java.io.File;
@@ -13,13 +9,13 @@ import java.nio.file.Paths;
 
 /**
  *
- * @author Charly Ponce
+ * @author Leo Lorenzo
  */
 public class Principal {
     public static void main(String[] args) throws Exception {
         String ruta1 = "C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\Lexer.flex";
         String ruta2 = "C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\LexerCup.flex";
-        String[] rutaS = {"-parser", "Sintax", "C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\intax.cup"};
+        String[] rutaS = {"-parser", "Sintax", "C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\Sintax.cup"};
         generar(ruta1, ruta2, rutaS);
     }
     public static void generar(String ruta1, String ruta2, String[] rutaS) throws IOException, Exception{
@@ -33,10 +29,12 @@ public class Principal {
         Path rutaSym = Paths.get("C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\sym.java");
         if (Files.exists(rutaSym)) {
             Files.delete(rutaSym);
+            System.out.println("eliminando sym");
         }
+        System.out.println("moviendo sym");
         Files.move(
                 Paths.get("C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\sym.java"), 
-                Paths.get("E:/Documentos/NetBeansProjects/AnalizadorLexico/src/codigo/sym.java")
+                Paths.get("C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\sym.java")
         );
         Path rutaSin = Paths.get("C:\\Users\\leolo\\OneDrive\\Escritorio\\Universidad\\Compiladores\\Programas\\wao\\AnalizadorLexico\\src\\codigo\\Sintax.java");
         if (Files.exists(rutaSin)) {

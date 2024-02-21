@@ -11,35 +11,35 @@ espacio=[ ,\t,\r]+
 %}
 %%
 
-/* Espacios en blanco */
+
 {espacio} {/*Ignore*/}
 
-/* Comentarios */
+
 ( "//"(.)* ) {/*Ignore*/}
 
-/* Salto de linea */
+
 ( "\n" ) {return Linea;}
 
-/* Comillas */
+
 ( "\"" ) {lexeme=yytext(); return Comillas;}
 
 /* Tipos de datos */
-( byte | int | char | long | float | double ) {lexeme=yytext(); return T_dato;}
+( byte | entero | char | long | flotante | double ) {lexeme=yytext(); return T_dato;}
 
 /* Tipo de dato String */
 ( String ) {lexeme=yytext(); return Cadena;}
 
-/* Palabra reservada If */
-( if ) {lexeme=yytext(); return If;}
+/* Palabra reservada Si */
+( si ) {lexeme=yytext(); return Si;}
 
-/* Palabra reservada Else */
-( else ) {lexeme=yytext(); return Else;}
+/* Palabra reservada Sino */
+( sino ) {lexeme=yytext(); return Sino;}
 
-/* Palabra reservada Do */
-( do ) {lexeme=yytext(); return Do;}
+/* Palabra reservada Hacer */
+( hacer ) {lexeme=yytext(); return Hacer;}
 
-/* Palabra reservada While */
-( while ) {lexeme=yytext(); return While;}
+/* Palabra reservada Mientras */
+( mientras ) {lexeme=yytext(); return Mientras;}
 
 /* Palabra reservada For */
 ( for ) {lexeme=yytext(); return For;}
