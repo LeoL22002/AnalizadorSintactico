@@ -28,13 +28,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void AnalizarSintactico(){
      String ST = txtResultado.getText();
         Sintax s = new Sintax(new codigo.LexerCup(new StringReader(ST)));
-
+        
         try {
             s.parse();
+            System.out.println(s.getProduction());
             txtAnalizarSin.setText("Analisis realizado correctamente");
             txtAnalizarSin.setForeground(new Color(25, 111, 61));
         } catch (Exception ex) {
             Symbol sym = s.getS();
+            System.out.println(s.getProduction());
             txtAnalizarSin.setText("Error de sintaxis. Linea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
             txtAnalizarSin.setForeground(Color.red);
         }
@@ -45,8 +47,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         String expr = (String) txtResultado.getText();
         Lexer lexer = new Lexer(new StringReader(expr));
         String resultado = "LINEA " + cont + "\t\tSIMBOLO\n";
+        
         while (true) {
             Tokens token = lexer.yylex();
+            
             if (token == null) {
                 txtAnalizarLex.setText(resultado);
                 return;
@@ -136,6 +140,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     break;
                 case Identificador:
                     resultado += "  <Identificador>\t\t" + lexer.lexeme + "\n";
+                    break;
+                case P_Flotante:
+                    
+                    resultado += "  <Punto Flotante>\t" + lexer.lexeme + "\n";
                     break;
                 case Numero:
                     resultado += "  <Numero>\t\t" + lexer.lexeme + "\n";
@@ -227,7 +235,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Analisis Sintactico");
+        jLabel3.setText("Resultado Analisis");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -319,8 +327,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarLexActionPerformed
 
     private void btnAnalizarLexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarLexActionPerformed
+       
         try {
-            analizarLexico();
+          analizarLexico();
           AnalizarSintactico();
         } catch (IOException ex) {
             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);

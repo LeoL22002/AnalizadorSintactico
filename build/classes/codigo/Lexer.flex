@@ -95,6 +95,10 @@ espacio=[ ,\t,\r]+
 /* Marcador de inicio de algoritmo */
 ( "main" ) {lexeme=yytext(); return Main;}
 
+/* Punto Flotante */
+( "." ) {lexeme=yytext(); return P_Flotante;}
+
+
 /* Punto y coma */
 ( ";" ) {lexeme=yytext(); return P_coma;}
 

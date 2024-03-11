@@ -104,6 +104,9 @@ espacio=[ ,\t,\r,\n]+
 /* Marcador de inicio de algoritmo */
 ( "main" ) {return new Symbol(sym.Main, yychar, yyline, yytext());}
 
+/* Punto Flotante */
+( "." ) {return new Symbol(sym.P_Flotante, yychar, yyline, yytext());}
+
 /* Punto y coma */
 ( ";" ) {return new Symbol(sym.P_coma, yychar, yyline, yytext());}
 

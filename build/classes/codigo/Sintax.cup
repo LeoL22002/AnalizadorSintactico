@@ -5,7 +5,8 @@ import java_cup.runtime.Symbol;
 parser code
 {:
     private Symbol s;
-    
+    private String production="none";
+
     public void syntax_error(Symbol s){
         this.s = s;
     }
@@ -13,12 +14,21 @@ parser code
     public Symbol getS(){
         return this.s;
 }
+
+public void setProduction(String production) {
+        this.production = production;
+    }
+
+    public String getProduction() {
+        return this.production;
+    }
+
 :};
 
 terminal Linea, Comillas, T_dato, Entero, Cadena, Si, Sino, Hacer, Mientras, For,
     Igual, Suma, Resta, Multiplicacion, Division, Op_logico, Op_relacional,
     Op_atribucion, Op_incremento, Op_booleano, Parentesis_a, Parentesis_c,
-    Llave_a, Llave_c, Corchete_a, Corchete_c, Main, P_coma, Identificador,
+    Llave_a, Llave_c, Corchete_a, Corchete_c, Main, P_coma, Identificador,P_Flotante,
     Numero, ERROR;
 non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, SI, SI_SINO,
     MIENTRAS, HACER_MIENTRAS, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR;
@@ -26,8 +36,8 @@ non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, SI, SI_SINO,
 start with INICIO;
 
 INICIO ::= 
-    Entero Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c |
-    Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c | Main Parentesis_a Parentesis_c Llave_a Llave_c
+    Entero Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c {: parser.setProduction("INICIO"); :}|
+    Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c | Main Parentesis_a Parentesis_c Llave_a Llave_c {: parser.setProduction("INICIO"); :}
 ;
 SENTENCIA ::= 
     SENTENCIA DECLARACION |
@@ -44,22 +54,23 @@ SENTENCIA ::=
     FOR
 ;
 DECLARACION ::= 
-    Entero Identificador P_coma | 
-    Entero Identificador Op_atribucion Numero P_coma |
-    Entero Identificador Igual Numero P_coma | 
-    Entero Identificador Op_incremento P_coma | 
-    Entero Op_incremento Identificador P_coma | 
-    T_dato Identificador P_coma | 
-    T_dato Identificador Op_atribucion Numero P_coma |
-    T_dato Identificador Igual Numero P_coma |
-    T_dato Identificador Op_incremento P_coma | 
-    T_dato Op_incremento Identificador P_coma | 
-    Cadena Identificador Op_atribucion Comillas Comillas P_coma |
-    Cadena Identificador Igual Comillas Comillas P_coma |
-    Cadena Identificador Op_atribucion Comillas Identificador Comillas P_coma |
-    Cadena Identificador Igual Comillas Identificador Comillas P_coma
+    Entero Identificador P_coma {: parser.setProduction("DECLARACION"); :}| 
+    Entero Identificador Op_atribucion Numero P_coma {: parser.setProduction("DECLARACION"); :}|
+    Entero Identificador Igual Numero P_coma {: parser.setProduction("DECLARACION"); :}| 
+    Entero Identificador Op_incremento P_coma {: parser.setProduction("DECLARACION"); :}| 
+    Entero Op_incremento Identificador P_coma {: parser.setProduction("DECLARACION"); :}| 
+    T_dato Identificador P_coma {: parser.setProduction("DECLARACION"); :}| 
+    T_dato Identificador Op_atribucion Numero P_coma {: parser.setProduction("DECLARACION"); :}|
+    T_dato Identificador Igual Numero P_coma {: parser.setProduction("DECLARACION"); :}|
+    T_dato Identificador Op_incremento P_coma {: parser.setProduction("DECLARACION"); :}| 
+    T_dato Op_incremento Identificador P_coma {: parser.setProduction("DECLARACION"); :}|
+    T_dato Identificador Igual Numero P_Flotante Numero P_coma {: parser.setProduction("DECLARACION"); :} |
+    Cadena Identificador Op_atribucion Comillas Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
+    Cadena Identificador Igual Comillas Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
+    Cadena Identificador Op_atribucion Comillas Identificador Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
+    Cadena Identificador Igual Comillas Identificador Comillas P_coma {: parser.setProduction("DECLARACION"); :}
 ;
-SI ::= Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
+SI ::= Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c 
 ;
 SENTENCIA_BOOLEANA ::= 
     Op_booleano | 

@@ -39,5 +39,8 @@ public enum Tokens {
     P_coma,
     Identificador,
     Numero,
+    P_Flotante,
+    Palabras,
+    Letra,
     ERROR
 }
