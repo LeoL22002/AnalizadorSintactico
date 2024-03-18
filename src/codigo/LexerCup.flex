@@ -36,7 +36,7 @@ espacio=[ ,\t,\r,\n]+
 ( "entero" ) {return new Symbol(sym.Entero, yychar, yyline, yytext());}
 
 
-( String ) {return new Symbol(sym.Cadena, yychar, yyline, yytext());}
+( cadena ) {return new Symbol(sym.Cadena, yychar, yyline, yytext());}
 
 
 ( si ) {return new Symbol(sym.Si, yychar, yyline, yytext());}
@@ -51,7 +51,7 @@ espacio=[ ,\t,\r,\n]+
 ( mientras ) {return new Symbol(sym.Mientras, yychar, yyline, yytext());}
 
 
-( for ) {return new Symbol(sym.For, yychar, yyline, yytext());}
+( ciclo ) {return new Symbol(sym.For, yychar, yyline, yytext());}
 
 
 ( "=" ) {return new Symbol(sym.Igual, yychar, yyline, yytext());}
@@ -102,7 +102,10 @@ espacio=[ ,\t,\r,\n]+
 ( "]" ) {return new Symbol(sym.Corchete_c, yychar, yyline, yytext());}
 
 /* Marcador de inicio de algoritmo */
-( "main" ) {return new Symbol(sym.Main, yychar, yyline, yytext());}
+( "principal" ) {return new Symbol(sym.Main, yychar, yyline, yytext());}
+
+/* Imprimir */
+( "presentar" ) {return new Symbol(sym.Presentar, yychar, yyline, yytext());}
 
 /* Punto Flotante */
 ( "." ) {return new Symbol(sym.P_Flotante, yychar, yyline, yytext());}

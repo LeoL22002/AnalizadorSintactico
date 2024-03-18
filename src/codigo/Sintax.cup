@@ -29,9 +29,9 @@ terminal Linea, Comillas, T_dato, Entero, Cadena, Si, Sino, Hacer, Mientras, For
     Igual, Suma, Resta, Multiplicacion, Division, Op_logico, Op_relacional,
     Op_atribucion, Op_incremento, Op_booleano, Parentesis_a, Parentesis_c,
     Llave_a, Llave_c, Corchete_a, Corchete_c, Main, P_coma, Identificador,P_Flotante,
-    Numero, ERROR;
+    Numero, Presentar, ERROR;
 non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, SI, SI_SINO,
-    MIENTRAS, HACER_MIENTRAS, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR;
+    MIENTRAS, HACER_MIENTRAS, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR,IMPRIMIR;
 
 start with INICIO;
 
@@ -50,7 +50,8 @@ SENTENCIA ::=
     MIENTRAS |
     SENTENCIA HACER_MIENTRAS
     HACER_MIENTRAS |
-    SENTENCIA FOR |
+    SENTENCIA_FOR |
+    IMPRIMIR|
     FOR
 ;
 DECLARACION ::= 
@@ -68,10 +69,18 @@ DECLARACION ::=
     Cadena Identificador Op_atribucion Comillas Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
     Cadena Identificador Igual Comillas Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
     Cadena Identificador Op_atribucion Comillas Identificador Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
-    Cadena Identificador Igual Comillas Identificador Comillas P_coma {: parser.setProduction("DECLARACION"); :}
+    Cadena Identificador Igual Comillas Identificador Comillas P_coma {: parser.setProduction("DECLARACION"); :}|
+    Cadena Identificador P_coma {: parser.setProduction("DECLARACION"); :}
 ;
 SI ::= Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c 
 ;
+
+IMPRIMIR::=
+Presentar Parentesis_a Comillas Comillas Parentesis_c P_coma|
+Presentar Parentesis_a Comillas Identificador Comillas Parentesis_c P_coma|
+Presentar Parentesis_a Comillas Identificador Identificador Comillas Parentesis_c P_coma
+;
+
 SENTENCIA_BOOLEANA ::= 
     Op_booleano | 
     Identificador Op_relacional Op_booleano |
@@ -89,7 +98,7 @@ HACER_MIENTRAS ::= Hacer Llave_a SENTENCIA Llave_c Mientras Parentesis_a SENTENC
 FOR ::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c
 ;
 SENTENCIA_FOR ::=
-    T_dato Identificador Igual Numero P_coma SENTENCIA_BOOLEANA P_coma DECLARACION_FOR |
+    Entero Identificador Igual Numero P_coma SENTENCIA_BOOLEANA P_coma DECLARACION_FOR|
     Identificador Igual Numero P_coma SENTENCIA_BOOLEANA P_coma DECLARACION_FOR
 ;
 DECLARACION_FOR ::= 

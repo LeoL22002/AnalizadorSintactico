@@ -27,7 +27,7 @@ espacio=[ ,\t,\r]+
 ( byte | entero | char | long | flotante | double ) {lexeme=yytext(); return T_dato;}
 
 /* Tipo de dato String */
-( String ) {lexeme=yytext(); return Cadena;}
+( cadena ) {lexeme=yytext(); return Cadena;}
 
 /* Palabra reservada Si */
 ( si ) {lexeme=yytext(); return Si;}
@@ -42,7 +42,7 @@ espacio=[ ,\t,\r]+
 ( mientras ) {lexeme=yytext(); return Mientras;}
 
 /* Palabra reservada For */
-( for ) {lexeme=yytext(); return For;}
+( ciclo ) {lexeme=yytext(); return For;}
 
 /* Operador Igual */
 ( "=" ) {lexeme=yytext(); return Igual;}
@@ -93,7 +93,10 @@ espacio=[ ,\t,\r]+
 ( "]" ) {lexeme = yytext(); return Corchete_c;}
 
 /* Marcador de inicio de algoritmo */
-( "main" ) {lexeme=yytext(); return Main;}
+( "principal" ) {lexeme=yytext(); return Main;}
+
+/* imprimir */
+( "presentar" ) {lexeme=yytext(); return Presentar;}
 
 /* Punto Flotante */
 ( "." ) {lexeme=yytext(); return P_Flotante;}
